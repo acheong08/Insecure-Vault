@@ -33,10 +33,12 @@ uploadDir = 'modules/DATA/files/upload/'
 command = None
 while command != 0:
     # List options
-    command = int(input("1) Add file 2) Delete file 3) List files 4) Clear data 0) Exit "))
+    command = int(input("1) Add file 2) Delete file 3) List files 4) Clear data 5) Open file 0) Exit "))
     # Run options
     if command == 0:
-        print("Exiting...")
+        print("Clearing tmp and Exiting...")
+        shutil.rmtree('modules/DATA/files/tmp')
+        os.mkdir('modules/DATA/files/tmp')
         sys.exit(0)
     elif command == 1:
         filepath = str(input("Enter path to file: "))
@@ -66,3 +68,7 @@ while command != 0:
             sys.exit('All data cleared.')
         except Exception as e:
             print(e)
+    elif command == 5:
+        fileMan.open(str(input("Enter filename")))
+    else:
+        print("Not a command")
