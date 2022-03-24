@@ -29,6 +29,7 @@ else:
 # Constants
 fileMan = fileManager(password)
 uploadDir = 'modules/DATA/files/upload/'
+tmpPath = 'modules/DATA/files/tmp/'
 # Loop for continuous commands
 command = None
 while command != 0:
@@ -36,6 +37,13 @@ while command != 0:
     command = int(input("1) Add file 2) Delete file 3) List files 4) Clear data 5) Open file 0) Exit "))
     # Run options
     if command == 0:
+        print("Saving edits")
+        for filename in os.listdir(tmpPath):
+            fileMan.rm(filename)
+            uploadPath = str(uploadDir + filename)
+            filepath = str(tmpPath + filename)
+            shutil.copy(filepath, uploadPath)
+            fileMan.add(filename)
         print("Clearing tmp and Exiting...")
         shutil.rmtree('modules/DATA/files/tmp')
         os.mkdir('modules/DATA/files/tmp')

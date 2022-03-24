@@ -5,11 +5,11 @@ import sys
 from modules.vault_manager import *
 from hashlib import md5
 from urllib.parse import urlparse, unquote
-# Set GTK version
+
 gi.require_version('Gtk' ,'3.0')
 from gi.repository import Gtk, GLib
 
-# Button to allow user to open up a file menu
+
 class FileChooserWindow(Gtk.Window):
     def __init__(self, fileMan):
         super().__init__(title="FileChooser Example")
@@ -20,6 +20,7 @@ class FileChooserWindow(Gtk.Window):
         button1 = Gtk.Button(label="Choose File")
         button1.connect("clicked", self.on_file_clicked)
         box.add(button1)
+
     def on_file_clicked(self, widget):
         dialog = Gtk.FileChooserDialog(
             title="Please choose a file", parent=self, action=Gtk.FileChooserAction.OPEN
@@ -47,7 +48,6 @@ class FileChooserWindow(Gtk.Window):
 
         dialog.destroy()
 
-# Authentication: Request password and verify with hash
 class Auth(Gtk.Window):
     def __init__(self):
         super().__init__(title="Login")
@@ -98,8 +98,9 @@ class Auth(Gtk.Window):
         self.destroy()
         print('destroyed')
 
-# Displays a list of files in the vault
 class Filelist(Gtk.Window):
+    """docstring for FileManager."""
+
     def __init__(self, fileMan):
         super().__init__(title="Filelist")
 
@@ -109,9 +110,9 @@ class Filelist(Gtk.Window):
         for file in fileMan.ls('/'):
             label = Gtk.Label(label = file)
             vbox.pack_start(label, True, True, 0)
-
-# Opens a file from the vault
 class openFile(Gtk.Window):
+    """docstring for openFile."""
+
     def __init__(self, fileMan):
         super().__init__(title="Vault entry")
 
@@ -150,8 +151,10 @@ class DeleteFile(openFile):
         self.fileMan.rm(self.entry.get_text())
         self.destroy()
 
-# List of buttons linked to possible actions
+
 class ActionManager(Gtk.Window):
+    """docstring for ActionManager."""
+
     def __init__(self, fileMan):
         super().__init__(title="Action Manager")
         self.fileMan  = fileMan
@@ -202,7 +205,7 @@ class ActionManager(Gtk.Window):
     def clearfile(self, button):
         self.fileMan.clear()
 
-# The main method
+
 class Main():
     def __init__(self):
         super(Main, self).__init__()
@@ -221,7 +224,6 @@ class Main():
         am.connect("destroy", sys.exit)
         Gtk.main()
 
-# Running
 gui = Main()
 gui.auth()
 gui.actionManager()

@@ -99,6 +99,7 @@ class fileDB():
         conn.commit()
         conn.close()
 class fileManager():
+    """docstring for fileManager."""
 
     def __init__(self, password):
         super(fileManager, self).__init__()
